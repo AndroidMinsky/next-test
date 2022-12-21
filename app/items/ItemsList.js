@@ -4,11 +4,16 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Filter from "./Filter";
 import { motion, AnimatePresence } from "framer-motion";
+import Modal from "./Modal";
+import { useSearchParams } from "next/navigation";
 
 export default function ItemsList(props) {
   const [items, setItems] = useState(props.items);
   const [filteredItems, setFilteredItems] = useState(props.items);
   const [genre, setGenre] = useState("All");
+  const searchParams = useSearchParams();
+
+  const item = searchParams.get("item");
 
   useEffect(() => {
     if (genre === "All") {
@@ -21,6 +26,7 @@ export default function ItemsList(props) {
 
   return (
     <>
+      {/* {item && <Modal />} */}
       <Filter genre={genre} setGenre={setGenre} />
       <motion.ul
         layout
@@ -37,13 +43,9 @@ export default function ItemsList(props) {
               key={item.id}
               className="relative"
             >
-              <Link href={`items/${item.id}`}>
+              <Link href={`item/${item.id}`}>
                 <div className="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-                  <img
-                    src={item.images.icon}
-                    alt=""
-                    className="pointer-events-none object-cover group-hover:opacity-75"
-                  />
+                  <img src={item.images.icon} alt="" />
                   <button
                     type="button"
                     className="absolute inset-0 focus:outline-none"

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function Item({ params: { id } }) {
   const router = useRouter();
+
   return (
     <div>
       <header className="bg-gray-100 shadow-sm rounded-lg">
